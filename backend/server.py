@@ -20,6 +20,7 @@ from auth import build_auth_router
 from workspace import build_workspace_router
 from newsletter import build_newsletter_router
 from conversations import build_conversations_router
+from discover import build_discover_router
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -138,6 +139,9 @@ app.include_router(newsletter_router)
 # Conversations router (prefix /api/workspace)
 conversations_router = build_conversations_router(db, get_user_from_request)
 app.include_router(conversations_router)
+
+# Discover router (prefix /api/discover)
+app.include_router(build_discover_router())
 
 
 app.add_middleware(

@@ -166,11 +166,27 @@ def build_conversations_router(db, get_user_from_request):
         now = datetime.now(timezone.utc).isoformat()
         user_msg = {"role": "user", "text": payload.text, "ts": now}
 
-        # session_id ties to conversation_id so the LLM remembers the thread
+        # Build a transcript of the recent history to give the model real memory
+        prior = conv.get("messages", [])[-20:]
+        transcript_lines = []
+        for m in prior:
+            who = "User" if m.get("role") == "user" else "Assistant"
+            transcript_lines.append(f"{who}: {m.get('text','')}")
+        transcript = "\n".join(transcript_lines).strip()
+
+        system_with_memory = COFOUNDER_PROMPT
+        if transcript:
+            system_with_memory += (
+                "\n\nConversation memory so far (most recent first is at the bottom). "
+                "Use this to remember the user's startup, industry, stage, goals and never re-ask:\n"
+                f"---\n{transcript}\n---"
+            )
+
+        # session_id ties to conversation_id (a hint, not real persistence)
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY,
             session_id=conversation_id,
-            system_message=COFOUNDER_PROMPT,
+            system_message=system_with_memory,
         ).with_model("gemini", "gemini-3-flash-preview")
 
         full = ""
