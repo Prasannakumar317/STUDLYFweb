@@ -4,6 +4,7 @@ import { Menu, X, Sparkles, LayoutDashboard, ChevronDown } from "lucide-react";
 import { LOGO_URL, NAV_LINKS } from "../../data/landing";
 import { useAuth } from "../../lib/auth";
 import { useNavigate } from "react-router-dom";
+import useMediaQuery from "../../lib/useMediaQuery";
 import DiscoverMegaMenu from "./DiscoverMegaMenu";
 
 // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
@@ -17,6 +18,7 @@ export default function Navbar({ onGetStarted }) {
   const [open, setOpen] = useState(false);
   const [discoverOpen, setDiscoverOpen] = useState(false);
   const discoverHoverTimeout = useRef(null);
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -85,7 +87,7 @@ export default function Navbar({ onGetStarted }) {
               <ChevronDown className={`w-3.5 h-3.5 transition-transform ${discoverOpen ? "rotate-180" : ""}`} />
             </button>
             <AnimatePresence>
-              {discoverOpen && (
+              {discoverOpen && isDesktop && (
                 <DiscoverMegaMenu onClose={() => setDiscoverOpen(false)} />
               )}
             </AnimatePresence>
@@ -165,7 +167,7 @@ export default function Navbar({ onGetStarted }) {
 
       {/* Mobile mega-menu sheet */}
       <AnimatePresence>
-        {discoverOpen && (
+        {discoverOpen && !isDesktop && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="lg:hidden fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"

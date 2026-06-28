@@ -17,6 +17,7 @@ import FundingPage from "./pages/FundingPage";
 import DocumentsPage from "./pages/DocumentsPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import SettingsPage from "./pages/SettingsPage";
+import { CompanyDetailPage, DiscoverListPage } from "./pages/DiscoverPages";
 
 import "./App.css";
 
@@ -119,6 +120,12 @@ function AppRouter() {
           </ProtectedRoute>
         }
       />
+      <Route path="/discover" element={<DiscoverListPage route="/discover" />} />
+      <Route path="/discover/blog" element={<DiscoverListPage route="/discover/blog" />} />
+      <Route path="/discover/lists" element={<DiscoverListPage route="/discover/lists" />} />
+      <Route path="/discover/hiring" element={<DiscoverListPage route="/discover/hiring" />} />
+      <Route path="/discover/remote" element={<DiscoverListPage route="/discover/remote" />} />
+      <Route path="/discover/company/:slug" element={<CompanyDetailPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

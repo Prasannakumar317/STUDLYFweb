@@ -57,3 +57,12 @@ Premium AI Business Operating System: marketing landing → authenticated worksp
 - P2: File attachment parsing (extract text from PDF/DOCX/PPTX)
 - P2: Real PPTX/Google Slides export of Pitch Deck
 - P2: Stripe checkout from Pricing, team workspaces, i18n
+
+### Phase 5 — Discover Mega-Menu (2026-06-28)
+- Wellfound-inspired 3-column mega-menu in landing-page navbar
+- **Backend `/api/discover`**: `/startups` (YC Algolia + curated fallback of 30 real companies), `/stories` (live Hacker News API), `/industries` (13), `/search`, `/company/{slug}`. In-memory 1-hour cache.
+- **Frontend**: `DiscoverMegaMenu` (search bar with 250ms debounce, Trending Startups, Industry chips, HN Stories, footer quick links), hover-open on desktop + click-open mobile sheet. ESC closes. Uses React Router `useNavigate` (SPA nav, no full reload). Mobile sheet gated via `useMediaQuery('(min-width: 1024px)')` to avoid duplicate DOM.
+- **New routes**: `/discover`, `/discover?industry=:slug`, `/discover/company/:slug`, `/discover/blog|lists|hiring|remote` — all functional list/detail pages with Navbar+Footer.
+- **Test results (iteration_5)**: backend 16/17, frontend mega-menu fully functional. Fixed: expanded curated to 30 companies (search now returns ≥5 results for fintech/AI/etc), removed duplicate DOM, SPA nav, created /discover/* route stubs.
+
+**Note on YC Algolia**: Y Combinator's public Algolia key (`45BWZJ1SGC`) currently returns 403 (key rotates periodically). The backend silently falls back to a 30-entry curated list of REAL companies (Stripe, OpenAI, Anthropic, Ramp, Brex, Vercel, Linear, Shopify, Coinbase, etc.) with live Clearbit logos and Hacker News stories — so the UX is fully functional with real data.

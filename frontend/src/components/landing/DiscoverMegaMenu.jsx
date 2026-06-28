@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search, Loader2, MapPin, Building2, TrendingUp, Newspaper, X,
@@ -79,6 +80,7 @@ export default function DiscoverMegaMenu({ onClose, panelId = "discover-mega", i
   const [results, setResults] = useState(null);
 
   const panelRef = useRef(null);
+  const routerNav = useNavigate();
 
   // Fetch lists (parallel)
   useEffect(() => {
@@ -129,9 +131,9 @@ export default function DiscoverMegaMenu({ onClose, panelId = "discover-mega", i
 
   const navigate = useCallback((url, external = false) => {
     if (external) { window.open(url, "_blank", "noopener,noreferrer"); }
-    else { window.location.href = url; }
+    else { routerNav(url); }
     onClose?.();
-  }, [onClose]);
+  }, [onClose, routerNav]);
 
   return (
     <motion.div

@@ -60,6 +60,37 @@ CURATED_STARTUPS = [
     {"name": "Databricks", "domain": "databricks.com", "industry": "AI/ML", "location": "San Francisco, CA", "description": "The data and AI lakehouse platform."},
     {"name": "Vercel", "domain": "vercel.com", "industry": "Developer Tools", "location": "San Francisco, CA", "description": "Frontend cloud for building & shipping web apps."},
     {"name": "Linear", "domain": "linear.app", "industry": "SaaS", "location": "Remote", "description": "Issue tracking and product planning, beautifully designed."},
+    # Fintech
+    {"name": "Ramp",   "domain": "ramp.com",   "industry": "Fintech", "location": "New York, NY",      "description": "Corporate cards and spend management."},
+    {"name": "Brex",   "domain": "brex.com",   "industry": "Fintech", "location": "San Francisco, CA", "description": "Cards, banking and bill pay for startups."},
+    {"name": "Mercury","domain": "mercury.com","industry": "Fintech", "location": "San Francisco, CA", "description": "Banking built for ambitious companies."},
+    {"name": "Plaid",  "domain": "plaid.com",  "industry": "Fintech", "location": "San Francisco, CA", "description": "Financial connectivity for apps and services."},
+    # AI/ML
+    {"name": "Perplexity", "domain": "perplexity.ai", "industry": "AI/ML", "location": "San Francisco, CA", "description": "Answer engine for the internet."},
+    {"name": "Mistral AI", "domain": "mistral.ai",   "industry": "AI/ML", "location": "Paris, FR",         "description": "Open and portable generative AI models."},
+    {"name": "Hugging Face", "domain": "huggingface.co", "industry": "AI/ML", "location": "New York, NY",  "description": "The AI community building the future."},
+    # Developer Tools
+    {"name": "GitHub",    "domain": "github.com",    "industry": "Developer Tools", "location": "San Francisco, CA", "description": "Where the world builds software."},
+    {"name": "Supabase",  "domain": "supabase.com",  "industry": "Developer Tools", "location": "Remote", "description": "The open-source Firebase alternative."},
+    {"name": "Cloudflare","domain": "cloudflare.com","industry": "Developer Tools", "location": "San Francisco, CA", "description": "Connectivity cloud for the Internet."},
+    # Cybersecurity
+    {"name": "Wiz",        "domain": "wiz.io",        "industry": "Cyber Security", "location": "New York, NY",      "description": "Cloud security made simple."},
+    {"name": "1Password",  "domain": "1password.com", "industry": "Cyber Security", "location": "Toronto, CA",       "description": "Password manager for teams and families."},
+    # Healthcare / Biotech
+    {"name": "Tempus",   "domain": "tempus.com",     "industry": "Healthcare", "location": "Chicago, IL", "description": "AI-enabled precision medicine."},
+    {"name": "Moderna",  "domain": "modernatx.com",  "industry": "Biotech",    "location": "Cambridge, MA","description": "mRNA medicines for a new generation."},
+    # E-commerce / Consumer
+    {"name": "Shopify",  "domain": "shopify.com", "industry": "E-commerce", "location": "Ottawa, CA",       "description": "Commerce platform for ambitious entrepreneurs."},
+    {"name": "Airbnb",   "domain": "airbnb.com",  "industry": "Consumer",   "location": "San Francisco, CA","description": "Belong anywhere. Hosts, homes and experiences."},
+    # Enterprise
+    {"name": "Snowflake","domain": "snowflake.com","industry": "Enterprise", "location": "Bozeman, MT",     "description": "The AI data cloud."},
+    # Logistics
+    {"name": "Flexport", "domain": "flexport.com","industry": "Logistics",  "location": "San Francisco, CA","description": "Global supply chain platform."},
+    # Edtech
+    {"name": "Coursera", "domain": "coursera.org","industry": "Education",  "location": "Mountain View, CA","description": "Learn online from the world's best universities."},
+    {"name": "Duolingo", "domain": "duolingo.com","industry": "Education",  "location": "Pittsburgh, PA",   "description": "The free, fun way to learn a language."},
+    # Web3
+    {"name": "Coinbase", "domain": "coinbase.com","industry": "Crypto / Web3","location": "Remote",         "description": "Trusted on-ramp to the cryptoeconomy."},
 ]
 
 
