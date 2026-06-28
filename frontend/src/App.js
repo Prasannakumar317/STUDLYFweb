@@ -1,54 +1,54 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import React, { useState } from "react";
+import { Toaster } from "./components/ui/sonner";
+import Navbar from "./components/landing/Navbar";
+import Hero from "./components/landing/Hero";
+import TrustedBy from "./components/landing/TrustedBy";
+import Features from "./components/landing/Features";
+import Solutions from "./components/landing/Solutions";
+import Workflow from "./components/landing/Workflow";
+import Agents from "./components/landing/Agents";
+import DashboardPreview from "./components/landing/DashboardPreview";
+import Metrics from "./components/landing/Metrics";
+import Testimonials from "./components/landing/Testimonials";
+import Pricing from "./components/landing/Pricing";
+import FAQ from "./components/landing/FAQ";
+import Blog from "./components/landing/Blog";
+import Newsletter from "./components/landing/Newsletter";
+import Footer from "./components/landing/Footer";
+import ChatWidget from "./components/landing/ChatWidget";
+import SignupDialog from "./components/landing/SignupDialog";
+import "./App.css";
 
 function App() {
+  const [signupOpen, setSignupOpen] = useState(false);
+  const openSignup = () => setSignupOpen(true);
+
+  const watchDemo = () => {
+    document.getElementById("workflow")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+    <div className="App relative bg-white text-gray-900 overflow-x-hidden" data-testid="landing-page">
+      <Navbar onGetStarted={openSignup} />
+      <main>
+        <Hero onGetStarted={openSignup} onWatchDemo={watchDemo} />
+        <TrustedBy />
+        <Features />
+        <Solutions />
+        <Workflow />
+        <Agents />
+        <DashboardPreview />
+        <Metrics />
+        <Testimonials />
+        <Pricing onSelect={openSignup} />
+        <Blog />
+        <FAQ />
+        <Newsletter />
+      </main>
+      <Footer />
+      <ChatWidget />
+      <SignupDialog open={signupOpen} onOpenChange={setSignupOpen} />
+      <Toaster position="bottom-center" richColors />
     </div>
   );
 }
