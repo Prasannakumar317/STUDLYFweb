@@ -1,0 +1,89 @@
+{
+  "theme": "light",
+  "archetype": "3 (Pastel & Soft) / Elevated Apple-Inspired Minimalist",
+  "colors": {
+    "background": "#FFFFFF",
+    "primary": "#6C63FF",
+    "secondary": "#FF4D94",
+    "accent": "#FF7A18",
+    "success": "#2ECC71",
+    "info": "#3FA9F5",
+    "warning": "#FFC145",
+    "surface": "rgba(255, 255, 255, 0.6)",
+    "border": "rgba(255, 255, 255, 0.4)",
+    "border_solid": "#F3F4F6",
+    "text_main": "#0A0A0A",
+    "text_muted": "#52525B"
+  },
+  "gradients": {
+    "blob_purple_pink": "linear-gradient(135deg, #6C63FF, #FF4D94)",
+    "blob_pink_orange": "linear-gradient(135deg, #FF4D94, #FF7A18)",
+    "blob_blue_purple": "linear-gradient(135deg, #3FA9F5, #6C63FF)",
+    "blob_orange_pink": "linear-gradient(135deg, #FF7A18, #FF4D94)",
+    "blob_green_blue": "linear-gradient(135deg, #2ECC71, #3FA9F5)"
+  },
+  "typography": {
+    "heading_font": "Outfit, sans-serif",
+    "body_font": "Plus Jakarta Sans, sans-serif",
+    "h1": "text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter leading-tight text-gray-900",
+    "h2": "text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-gray-900",
+    "h3": "text-xl md:text-2xl font-semibold tracking-tight text-gray-800",
+    "body": "text-base md:text-lg leading-relaxed text-gray-600",
+    "overline": "text-sm font-bold tracking-[0.2em] uppercase text-primary"
+  },
+  "layout_and_spacing": {
+    "container": "max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24",
+    "section_padding": "py-24 md:py-32",
+    "card_radius": "rounded-[24px]",
+    "button_radius": "rounded-full"
+  },
+  "surfaces_and_glassmorphism": {
+    "card": "bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)]",
+    "navbar_scrolled": "bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm",
+    "navbar_transparent": "bg-transparent border-transparent"
+  },
+  "animations": {
+    "library": "framer-motion",
+    "fade_up": { "initial": { "opacity": 0, "y": 20 }, "animate": { "opacity": 1, "y": 0 } },
+    "stagger": { "visible": { "transition": { "staggerChildren": 0.1 } } },
+    "floating_blobs": "Implement highly blurred (blur-3xl) absolute divs with gradient backgrounds behind the glassmorphic cards. Use framer-motion to slowly translate (x, y) and scale these blobs for an organic, breathing liquid glass effect.",
+    "hover_lift": "hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-300 ease-out",
+    "glowing_button": "relative overflow-hidden group hover:scale-105 transition-transform duration-300"
+  },
+  "media": {
+    "logo": "https://customer-assets.emergentagent.com/job_studlyf-ai/artifacts/4bpxnsrg_Screenshot%202026-06-28%20130229.png",
+    "trusted_by_logos": "Use react-icons/si (e.g., SiStripe, SiGoogle, SiMeta, SiAmazon, SiMicrosoft, SiVercel) with className='text-gray-400 hover:text-gray-900 transition-colors text-4xl'",
+    "blog_images": [
+      "https://images.unsplash.com/photo-1559136555-9303baea8ebd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwxfHxzdGFydHVwJTIwdGVhbSUyMG1vZGVybiUyMG9mZmljZSUyMG1pbmltYWx8ZW58MHx8fHwxNzgyNjMyMTAxfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHxzdGFydHVwJTIwdGVhbSUyMG1vZGVybiUyMG9mZmljZSUyMG1pbmltYWx8ZW58MHx8fHwxNzgyNjMyMTAxfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwzfHxzdGFydHVwJTIwdGVhbSUyMG1vZGVybiUyMG9mZmljZSUyMG1pbmltYWx8ZW58MHx8fHwxNzgyNjMyMTAxfDA&ixlib=rb-4.1.0&q=85"
+    ],
+    "testimonial_avatars": [
+      "https://images.pexels.com/photos/33646670/pexels-photo-33646670.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=150&w=150",
+      "https://images.pexels.com/photos/29852895/pexels-photo-29852895.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=150&w=150"
+    ],
+    "ai_agents_avatars": "Do NOT use human photos. Use beautifully styled glowing circular <div> elements containing specific lucide-react icons (e.g., Bot, LineChart, Megaphone, Search, Zap) to represent the 10 AI Agents."
+  },
+  "sections_instructions": {
+    "Navbar": "Sticky, transparent at top, transition to glassmorphic white on scroll. Structure: Logo (left), Links (center), 'Get Started' glowing button (right).",
+    "Hero": "Two-column. Left: H1 with gradient text span (bg-clip-text text-transparent), Subtitle, Primary & Secondary CTA. Right: Abstract interactive Dashboard Mockup built with HTML/Tailwind, animated floating elements. Background: Pure white with 2-3 massive, highly blurred, slowly moving colored blobs.",
+    "TrustedBy": "Minimalist grayscale logo strip. Use flex flex-wrap or simple marquee.",
+    "Features": "12 cards in a Bento Grid. Each card uses glassmorphism and features a unique accent color blob behind the icon. Add hover lift and border shimmer.",
+    "Solutions": "6 cards focused on target audiences (Startups, VCs, etc.). Keep ultra minimal. Large subtle typography or numbers in background.",
+    "WorkflowTimeline": "Horizontal or Vertical timeline. Use framer-motion SVG line drawing to animate the path between nodes (Idea -> Launch).",
+    "AIAgents": "Grid or interactive slider of 10 agent cards. Each has a glowing icon avatar, name, and specialization tag.",
+    "DashboardPreview": "Showcase the 'Platform'. Build a mockup UI using Shadcn-like structure (Sidebar, Center panel, Right stats). Integrate animated metric counters using framer-motion.",
+    "Metrics": "Section with 3-4 large numbers. Use framer-motion for counting up effect.",
+    "Testimonials": "Carousel or multi-column grid of glassmorphic cards. Include star ratings, avatar, name, and quote.",
+    "Pricing": "Monthly/Yearly toggle. 4 tiers (Starter, Pro, Business, Enterprise). Apply a glowing gradient border to the 'Pro' or 'Business' tier to highlight it.",
+    "FAQ": "Accordion using Shadcn UI. Keep borders thin and touch targets large. Minimalist styling.",
+    "Blog": "3 cards. Top image, minimal meta tags, clean typography.",
+    "Newsletter": "Large glassmorphic banner section. Input field and submit button.",
+    "Footer": "Clean 4-column layout. Light gray text, simple copyright.",
+    "ChatWidget": "Fixed bottom-right corner. A circular glowing button (using Primary or Accent color) that toggles a mock Chat window powered by Gemini UI vibes."
+  },
+  "testing": {
+    "attributes": "CRITICAL: ALL interactive elements (buttons, links, form inputs, toggles, accordion triggers) MUST include a 'data-testid' attribute (e.g., 'data-testid=\"hero-cta-button\"')."
+  },
+  "general_instructions_for_agent": "Strictly adhere to the Apple-inspired minimalism: huge white space, thin borders, soft shadows, and high-quality typography. DO NOT use generic gray backgrounds; keep the main background pure white (#FFFFFF) and use colorful, highly blurred background div blobs (blur-[100px] opacity-20) behind the glassmorphism cards to inject the requested brand gradients. Ensure all 24px border radii are respected. Use lucide-react for UI icons."
+}
