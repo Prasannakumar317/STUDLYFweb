@@ -8,6 +8,7 @@ import WorkspaceShell from "./components/workspace/WorkspaceShell";
 
 import LandingPage from "./pages/LandingPage";
 import AuthCallback from "./pages/AuthCallback";
+import WorkspaceHomePage from "./pages/WorkspaceHomePage";
 import DashboardHomePage from "./pages/DashboardHomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import StrategyPage from "./pages/StrategyPage";
@@ -30,6 +31,16 @@ function AppRouter() {
       <Route path="/" element={<LandingPage />} />
       <Route
         path="/workspace"
+        element={
+          <ProtectedRoute>
+            <ProjectsProvider>
+              <WorkspaceShell><WorkspaceHomePage /></WorkspaceShell>
+            </ProjectsProvider>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/workspace/dashboard"
         element={
           <ProtectedRoute>
             <ProjectsProvider>

@@ -1,13 +1,14 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
-  LayoutDashboard, FolderKanban, Compass, Megaphone, PiggyBank, FileText, BarChart3, Settings, LogOut, Sparkles,
+  LayoutDashboard, FolderKanban, Compass, Megaphone, PiggyBank, FileText, BarChart3, Settings, LogOut, Sparkles, MessageSquare,
 } from "lucide-react";
 import { useAuth } from "../../lib/auth";
 import { LOGO_URL } from "../../data/landing";
 
 const NAV = [
-  { to: "/workspace", label: "Dashboard", icon: LayoutDashboard, end: true },
+  { to: "/workspace", label: "AI Workspace", icon: MessageSquare, end: true },
+  { to: "/workspace/dashboard", label: "BI Dashboard", icon: LayoutDashboard },
   { to: "/workspace/projects", label: "Projects", icon: FolderKanban },
   { to: "/workspace/strategy", label: "Strategy", icon: Compass },
   { to: "/workspace/marketing", label: "Marketing", icon: Megaphone },

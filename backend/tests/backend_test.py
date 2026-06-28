@@ -263,3 +263,136 @@ class TestGenerationsCrud:
         assert rd.status_code == 200
         rd2 = auth.delete(f"{BASE_URL}/api/workspace/generations/{gid}", timeout=10)
         assert rd2.status_code == 404
+
+
+# ---------- Phase 4: Conversations + Bootstrap ----------
+class TestConversations:
+    """POST/GET/PATCH/DELETE /api/workspace/conversations + messages + extract-startup + bootstrap"""
+
+    def test_conv_requires_auth(self, api):
+        r = api.get(f"{BASE_URL}/api/workspace/conversations", timeout=10)
+        assert r.status_code == 401
+        r2 = api.post(f"{BASE_URL}/api/workspace/conversations", json={}, timeout=10)
+        assert r2.status_code == 401
+
+    def test_create_list_get_patch_delete(self, auth):
+        # CREATE
+        r = auth.post(f"{BASE_URL}/api/workspace/conversations",
+                      json={"title": "TEST_phase4"}, timeout=15)
+        assert r.status_code == 200, r.text
+        c = r.json()
+        cid = c["conversation_id"]
+        assert c["title"] == "TEST_phase4"
+        # LIST (must NOT include messages array per spec)
+        rl = auth.get(f"{BASE_URL}/api/workspace/conversations", timeout=15)
+        assert rl.status_code == 200
+        items = rl.json()
+        assert any(i["conversation_id"] == cid for i in items)
+        for i in items:
+            assert "messages" not in i
+        # GET single (must include messages)
+        rg = auth.get(f"{BASE_URL}/api/workspace/conversations/{cid}", timeout=15)
+        assert rg.status_code == 200
+        single = rg.json()
+        assert "messages" in single
+        assert isinstance(single["messages"], list)
+        # PATCH rename
+        rp = auth.patch(f"{BASE_URL}/api/workspace/conversations/{cid}",
+                        json={"title": "TEST_renamed"}, timeout=15)
+        assert rp.status_code == 200
+        rg2 = auth.get(f"{BASE_URL}/api/workspace/conversations/{cid}", timeout=15)
+        assert rg2.json()["title"] == "TEST_renamed"
+        # DELETE
+        rd = auth.delete(f"{BASE_URL}/api/workspace/conversations/{cid}", timeout=15)
+        assert rd.status_code == 200
+        rg3 = auth.get(f"{BASE_URL}/api/workspace/conversations/{cid}", timeout=15)
+        assert rg3.status_code == 404
+
+    def test_message_flow_and_memory(self, auth):
+        """Send 2 messages establishing a startup name, then ask 'what is my startup called?'."""
+        rc = auth.post(f"{BASE_URL}/api/workspace/conversations",
+                       json={"title": "TEST_memory"}, timeout=15)
+        cid = rc.json()["conversation_id"]
+        try:
+            # Msg 1
+            r1 = auth.post(f"{BASE_URL}/api/workspace/conversations/{cid}/messages",
+                           json={"text": "I'm building a startup called PixelForge AI — an AI design assistant for indie founders."},
+                           timeout=120)
+            assert r1.status_code == 200, r1.text
+            b1 = r1.json()
+            assert b1["user_message"]["role"] == "user"
+            assert b1["assistant_message"]["role"] == "assistant"
+            assert len(b1["assistant_message"]["text"]) > 5
+            # auto-title from first user message
+            assert b1["title"] != "New chat"
+            # Msg 2
+            r2 = auth.post(f"{BASE_URL}/api/workspace/conversations/{cid}/messages",
+                           json={"text": "It's pre-seed and targets solo SaaS founders."},
+                           timeout=120)
+            assert r2.status_code == 200
+            # Memory probe
+            r3 = auth.post(f"{BASE_URL}/api/workspace/conversations/{cid}/messages",
+                           json={"text": "What is my startup called? Reply in one short sentence."},
+                           timeout=120)
+            assert r3.status_code == 200
+            reply = r3.json()["assistant_message"]["text"].lower()
+            assert "pixelforge" in reply, f"AI didn't remember startup name. Got: {reply[:200]}"
+            # Conversation persists 6 messages
+            rg = auth.get(f"{BASE_URL}/api/workspace/conversations/{cid}", timeout=15)
+            assert len(rg.json()["messages"]) == 6
+        finally:
+            auth.delete(f"{BASE_URL}/api/workspace/conversations/{cid}", timeout=10)
+
+    def test_extract_startup_empty_returns_4xx(self, auth):
+        """Empty conversation -> 400 per spec."""
+        rc = auth.post(f"{BASE_URL}/api/workspace/conversations",
+                       json={"title": "TEST_empty"}, timeout=10)
+        cid = rc.json()["conversation_id"]
+        try:
+            r = auth.post(f"{BASE_URL}/api/workspace/extract-startup",
+                          json={"conversation_id": cid}, timeout=15)
+            assert r.status_code == 400, f"expected 400 for empty conv, got {r.status_code}: {r.text}"
+        finally:
+            auth.delete(f"{BASE_URL}/api/workspace/conversations/{cid}", timeout=10)
+
+    def test_extract_startup_and_bootstrap(self, auth):
+        rc = auth.post(f"{BASE_URL}/api/workspace/conversations",
+                       json={"title": "TEST_extract"}, timeout=15)
+        cid = rc.json()["conversation_id"]
+        created_pid = None
+        try:
+            auth.post(f"{BASE_URL}/api/workspace/conversations/{cid}/messages",
+                      json={"text": "My startup is NovaMail — an AI cold-email tool for B2B sales teams. We're at pre-seed."},
+                      timeout=120)
+            r = auth.post(f"{BASE_URL}/api/workspace/extract-startup",
+                          json={"conversation_id": cid}, timeout=60)
+            assert r.status_code == 200, r.text
+            d = r.json()
+            for k in ("name", "tagline", "industry", "stage"):
+                assert k in d and isinstance(d[k], str) and len(d[k]) > 0, f"missing {k} in {d}"
+            # Bootstrap creates a real project
+            rb = auth.post(f"{BASE_URL}/api/workspace/bootstrap",
+                           json={"conversation_id": cid, **d}, timeout=30)
+            assert rb.status_code == 200, rb.text
+            proj = rb.json()["project"]
+            assert proj["name"] == d["name"]
+            assert proj["bootstrapped_from"] == cid
+            assert proj["user_id"] == TEST_USER_ID
+            created_pid = proj["project_id"]
+            # Verify persistence: GET workspace/projects
+            rp = auth.get(f"{BASE_URL}/api/workspace/projects", timeout=15)
+            assert any(p["project_id"] == created_pid for p in rp.json())
+        finally:
+            auth.delete(f"{BASE_URL}/api/workspace/conversations/{cid}", timeout=10)
+            if created_pid:
+                auth.delete(f"{BASE_URL}/api/workspace/projects/{created_pid}", timeout=10)
+
+    def test_extract_startup_unknown_conv_404(self, auth):
+        r = auth.post(f"{BASE_URL}/api/workspace/extract-startup",
+                      json={"conversation_id": "conv_doesnotexist"}, timeout=15)
+        assert r.status_code == 404
+
+    def test_bootstrap_requires_auth(self, api):
+        r = api.post(f"{BASE_URL}/api/workspace/bootstrap",
+                     json={"name": "X"}, timeout=10)
+        assert r.status_code == 401

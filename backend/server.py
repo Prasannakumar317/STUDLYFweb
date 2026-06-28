@@ -19,6 +19,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, Strea
 from auth import build_auth_router
 from workspace import build_workspace_router
 from newsletter import build_newsletter_router
+from conversations import build_conversations_router
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -133,6 +134,10 @@ app.include_router(workspace_router)
 # Newsletter router (prefix /api/newsletter)
 newsletter_router = build_newsletter_router(db)
 app.include_router(newsletter_router)
+
+# Conversations router (prefix /api/workspace)
+conversations_router = build_conversations_router(db, get_user_from_request)
+app.include_router(conversations_router)
 
 
 app.add_middleware(
