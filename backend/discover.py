@@ -48,9 +48,39 @@ INDUSTRIES = [
     {"slug": "logistics",       "name": "Logistics",        "yc_tag": "Logistics"},
     {"slug": "edtech",          "name": "Edtech",           "yc_tag": "Education"},
     {"slug": "consumer",        "name": "Consumer",         "yc_tag": "Consumer"},
+<<<<<<< HEAD
     {"slug": "climatetech",     "name": "Climate Tech",     "yc_tag": "Climate"},
     {"slug": "robotics",        "name": "Robotics",         "yc_tag": "Robotics"},
     {"slug": "deeptech",        "name": "Deep Tech",        "yc_tag": "Hard Tech / Deep Tech"},
+=======
+    {"slug": "climate-tech",    "name": "Climate Tech",     "yc_tag": "Climate"},
+    {"slug": "robotics",        "name": "Robotics",         "yc_tag": "Robotics"},
+    {"slug": "deep-tech",       "name": "Deep Tech",        "yc_tag": "Deep Tech"},
+]
+
+
+# Curated incubators / accelerators (real, well-known programs)
+INCUBATORS = [
+    {"name": "Y Combinator",   "domain": "ycombinator.com",   "industry": "Accelerator", "location": "Mountain View, CA", "description": "The original startup accelerator — Stripe, Airbnb, Dropbox."},
+    {"name": "Techstars",      "domain": "techstars.com",     "industry": "Accelerator", "location": "Boulder, CO",       "description": "Worldwide network helping founders succeed."},
+    {"name": "500 Global",     "domain": "500.co",            "industry": "Accelerator", "location": "San Francisco, CA", "description": "Multi-stage venture capital firm and accelerator."},
+    {"name": "Antler",         "domain": "antler.co",         "industry": "Incubator",   "location": "Singapore",         "description": "Day-zero VC backing exceptional founders."},
+    {"name": "Entrepreneur First","domain":"joinef.com",       "industry": "Talent Investor","location":"London, UK",     "description": "Builds startups by investing in individuals."},
+    {"name": "Plug and Play",  "domain": "plugandplaytechcenter.com","industry":"Accelerator","location":"Sunnyvale, CA","description": "Innovation platform connecting startups & corporations."},
+]
+
+
+# Curated VC firms
+VC_FIRMS = [
+    {"name": "Sequoia Capital","domain":"sequoiacap.com","industry":"Venture Capital","location":"Menlo Park, CA","description":"Helping daring founders build legendary companies."},
+    {"name": "Andreessen Horowitz","domain":"a16z.com","industry":"Venture Capital","location":"Menlo Park, CA","description":"Software is eating the world — backing the builders."},
+    {"name": "Accel",          "domain":"accel.com","industry":"Venture Capital","location":"Palo Alto, CA","description":"Partnering with exceptional founders globally."},
+    {"name": "Benchmark",      "domain":"benchmark.com","industry":"Venture Capital","location":"San Francisco, CA","description":"Early-stage VC behind eBay, Uber, Snap."},
+    {"name": "Founders Fund",  "domain":"foundersfund.com","industry":"Venture Capital","location":"San Francisco, CA","description":"Backing transformational companies."},
+    {"name": "Lightspeed Venture Partners","domain":"lsvp.com","industry":"Venture Capital","location":"Menlo Park, CA","description":"Helping bold entrepreneurs build great companies."},
+    {"name": "Index Ventures", "domain":"indexventures.com","industry":"Venture Capital","location":"London, UK","description":"International VC — Discord, Figma, Notion."},
+    {"name": "General Catalyst","domain":"generalcatalyst.com","industry":"Venture Capital","location":"Cambridge, MA","description":"Long-term partners to category-defining founders."},
+>>>>>>> 63e1d999176753dd73679a749467ffa04b10ecae
 ]
 
 
